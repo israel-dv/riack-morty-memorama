@@ -1,27 +1,41 @@
-@import '/src/styles/variables';
+@import '../../styles/paletteColors';
 
-.header {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 24px;
-}
-
-.logo {
-  max-height: 180px;
-  max-width: 520px;
-}
-
-.title-game {
+%title-game {
   display: flex;
   align-items: center;
-  height: 40px;
   background-color: $green-lemon;
   color: $text-secondary;
   padding: 8px 16px;
   border-radius: 25px;
-  font-size: 20px;
   font-weight: bold;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.logo {
+  max-height: 100px;
+  max-width: 300px;
+}
+
+.title-game {
+  @extend %title-game;
+  font-size: 14px;
+  height: 25px;
+}
+
+@media (min-width: 700px) {
+  .logo {
+    max-height: 140px;
+    max-width: 480px;
+  }
+  .title-game {
+    @extend %title-game;
+    font-size: 20px;
+    height: 30px;
+  }
 }

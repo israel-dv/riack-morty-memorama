@@ -1,9 +1,4 @@
-// Palette Colors
-$primary-background: #1c1d3b;
-$secondary-background: #fffac2;
-$text-primary: #233a59;
-$text-secondary: #000;
-$green-lemon: #d8e054;
+@import './styles/paletteColors';
 
 #root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

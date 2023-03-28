@@ -1,0 +1,21 @@
+@import '/src/styles/paletteColors';
+
+%game-container-props {
+  width: 100%;
+  height: 100%;
+  background-color: $secondary-background;
+  border-radius: 16px 16px 0 0;
+  box-sizing: border-box;
+}
+
+.game-container {
+  @extend %game-container-props;
+  padding: 0 72px;
+}
+
+@media (max-width: 768px) {
+  .game-container {
+    @extend %game-container-props;
+    padding: 0 5%;
+  }
+}
