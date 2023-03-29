@@ -1,0 +1,7 @@
+@import '/src/styles/typography';
+
+.heading1 {
+  @extend %typography;
+  font-size: 49px;
+  line-height: 59px;
+}
