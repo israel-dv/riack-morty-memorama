@@ -5,7 +5,7 @@
   "semi": false,
   "printWidth": 100,
   "bracketSpacing": true,
-  "importOrder": ["^components/(.*)$", "^[./]"],
+  "importOrder": ["^@memorama/(.*)$", "^[./]"],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true
 }
