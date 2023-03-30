@@ -11,6 +11,7 @@
 .game-container {
   @extend %game-container-props;
   padding: 0 72px;
+  margin-top: 32px;
 }
 
 @media (max-width: 768px) {

@@ -1,12 +1,12 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 
-import { App } from './App'
 import './index.scss'
+import { Home } from './pages/Home'
 
 const root = createRoot(document.getElementById('root') as HTMLAnchorElement)
 root.render(
   <React.StrictMode>
-    <App />
+    <Home />
   </React.StrictMode>
 )
