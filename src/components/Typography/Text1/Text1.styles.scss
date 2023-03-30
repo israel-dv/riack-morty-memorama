@@ -1,0 +1,7 @@
+@import '/src/styles/_typography.scss';
+
+.text1 {
+  @extend %typography;
+  font-size: 16px;
+  line-height: 22px;
+}

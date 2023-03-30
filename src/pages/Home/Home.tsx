@@ -15,6 +15,12 @@ export const Home = (): React.ReactElement => {
         <GameContainer>
           <Typography.Heading2 text={'Personajes'} />
           <CardsContainer>
+            <Card
+              isFlipped
+              title="Toxic Rick"
+              subtitle="Dead - Humanoid"
+              imgUrl="https://rickandmortyapi.com/api/character/avatar/361.jpeg"
+            />
             <Card />
             <Card />
             <Card />
@@ -23,8 +29,12 @@ export const Home = (): React.ReactElement => {
             <Card />
             <Card />
             <Card />
-            <Card />
-            <Card />
+            <Card
+              isFlipped
+              title="Toxic Rick"
+              subtitle="Dead - Humanoid"
+              imgUrl="https://rickandmortyapi.com/api/character/avatar/361.jpeg"
+            />
             <Card />
             <Card />
           </CardsContainer>

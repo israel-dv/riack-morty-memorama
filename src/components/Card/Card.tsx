@@ -1,5 +1,8 @@
 import React from 'react'
 
+import { CARD_LOGO } from 'src/utils/constants/sourceFiles'
+
+import { Typography } from '../Typography'
 import './Card.styles.scss'
 
 type CardProps = {
@@ -11,13 +14,14 @@ type CardProps = {
 
 export const Card: React.FC<CardProps> = ({ imgUrl, title, subtitle, isFlipped = false }) => {
   return (
-    <div className={`card ${!isFlipped ? 'card-flipped' : ''}`}>
+    <div className={`card ${!isFlipped ? 'card-flipped' : 'card-normal'}`}>
       {!isFlipped ? (
-        <img src="/public/images/card.png" />
+        <img src={CARD_LOGO} />
       ) : (
         <>
-          <span>{title}</span>
-          <span>{subtitle}</span>
+          <img src={imgUrl} className="img-character" />
+          <Typography.Text1 text={title} />
+          <Typography.Text2 text={subtitle} />
         </>
       )}
     </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { HeadingProps } from '@memorama/utils/types/heading.types'
+import { HeadingProps } from 'src/utils/types/heading.types'
 
 import './Heading2.style.scss'
 
