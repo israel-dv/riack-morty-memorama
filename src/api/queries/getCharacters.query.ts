@@ -1,18 +1,12 @@
-import { DocumentNode, gql } from '@apollo/client'
+import { gql } from 'src/__generated__'
 
-type GetCharactersID = {
-  ids: number[]
-}
-
-export const GET_CHARACTERS = ({ ids }: GetCharactersID): DocumentNode => {
-  return gql`
-    query GetCharacters {
-      charactersByIds(ids: ${ids}) {
-        name
-        status
-        species
-        image
-      }
+export const GET_CHARACTERS = gql(`
+  query GetCharacters($ids: [ID!]!) {
+    charactersByIds(ids: $ids) {
+      name
+      status
+      species
+      image
     }
-  `
-}
+  }
+`)
