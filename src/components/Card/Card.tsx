@@ -13,13 +13,7 @@ type CardProps = {
   onClick?: () => void | null
 }
 
-export const Card: React.FC<CardProps> = ({
-  imgUrl,
-  title,
-  subtitle,
-  isFlipped = false,
-  onClick,
-}) => {
+export const Card = ({ imgUrl, title, subtitle, isFlipped = false, onClick }: CardProps) => {
   return (
     <div className={`card ${!isFlipped ? 'card-flipped' : 'card-normal'}`} onClick={onClick}>
       {!isFlipped ? (
