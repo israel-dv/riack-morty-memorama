@@ -1,8 +1,10 @@
 export type CharactersProps = {
-  __typename?: 'Character'
-  name?: string
-  status?: string
-  species?: string
-  image?: string
-  isFlipped?: boolean
+  __typename?: 'Character' | undefined
+  name?: string | null
+  status?: string | null
+  species?: string | null
+  image?: string | null
+  isFlipped: boolean
+  isMatched: boolean
+  indexID: number
 }

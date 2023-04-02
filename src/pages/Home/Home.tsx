@@ -20,14 +20,23 @@ const MIN_SELECTED_CARDS = 1
 const INITAL_HITS = 0
 const INITIAL_TURNS = 0
 const INITIAL_FLIPPED_CARDS = 0
+const CHAR_INITIAL = {
+  name: '',
+  status: '',
+  species: '',
+  image: '',
+  isFlipped: false,
+  isMatched: false,
+  indexID: 0,
+}
 
 export const Home = (): React.ReactElement => {
+  const [isGameActive, setIsGameActive] = useState<boolean>(false)
   const [hits, setHits] = useState<number>(INITAL_HITS)
   const [turns, setTurns] = useState<number>(INITIAL_TURNS)
   const [flippedCards, setFlippedCards] = useState<number>(INITIAL_FLIPPED_CARDS)
-  const [isGameActive, setIsGameActive] = useState<boolean>(false)
   const [characters, setCharacters] = useState<CharactersProps[]>([])
-  const [firstCardSelected, setFirstCardSelected] = useState<CharactersProps>()
+  const [firstCardSelected, setFirstCardSelected] = useState<CharactersProps>(CHAR_INITIAL)
 
   const { data, loading } = useQuery(GET_CHARACTERS, {
     variables: {
@@ -35,59 +44,72 @@ export const Home = (): React.ReactElement => {
     },
   })
 
+  const isCardUnblock = isGameActive && flippedCards !== MAX_SELECTED_CARDS
+
+  console.log({ isCardUnblock, flippedCards })
+
   useEffect(() => {
     if (data) {
       const { charactersByIds } = data
-      const combineCharacters = charactersByIds?.map((character) => ({
-        ...character,
-        isFlipped: true,
-      }))
-      setCharacters([...combineCharacters, ...combineCharacters])
+      if (charactersByIds) {
+        const combineCharacters = [...charactersByIds, ...charactersByIds]
+        const setCharactersProps = combineCharacters.map((character, indexID) => ({
+          ...character,
+          isFlipped: true,
+          isMatched: false,
+          indexID,
+        }))
+        setCharacters([...setCharactersProps])
+      }
     }
   }, [data])
 
   const handleFlippedCard = (character: CharactersProps, position: number) => {
-    let secondCardSelected
-    let flippedCardCounter = flippedCards + 1
-    const clone = [...characters]
+    const countFlippedCard = flippedCards + 1
+    const cloneCards = [...characters]
 
-    const selectedCard = () => ({ ...character, isFlipped: !character.isFlipped })
-
-    const flippingCard = () => {
-      const flipped = { ...character, isFlipped: !clone[position].isFlipped }
-
-      clone[position] = flipped
-      setCharacters(clone)
-
-      return flipped
+    if (countFlippedCard === MIN_SELECTED_CARDS) {
+      cloneCards[position] = { ...character, isFlipped: true }
+      setFirstCardSelected(cloneCards[position])
+      setCharacters(cloneCards)
+      setFlippedCards((flippedCard) => flippedCard + 1)
     }
-
-    if (flippedCardCounter === MIN_SELECTED_CARDS) {
-      setFirstCardSelected(flippingCard())
-    }
-    if (flippedCardCounter === MAX_SELECTED_CARDS) {
-      secondCardSelected = flippingCard()
-      setTurns((turn) => turn + 1)
-    }
-
-    if (flippedCardCounter === MAX_SELECTED_CARDS) {
-      if (firstCardSelected?.name === secondCardSelected?.name) {
-        flippedCardCounter = 0
+    if (countFlippedCard === MAX_SELECTED_CARDS) {
+      if (character.indexID === firstCardSelected.indexID) return
+      cloneCards[position] = { ...character, isFlipped: true }
+      setCharacters(cloneCards)
+      setFlippedCards((flippedCard) => flippedCard + 1)
+      // if (character.indexID === firstCardSelected.indexID) {
+      // return
+      // cloneCards[position] = { ...character, isFlipped: false }
+      // cloneCards[firstCardSelected.indexID] = { ...character, isFlipped: false }
+      // setFirstCardSelected(CHAR_INITIAL)
+      // setCharacters(cloneCards)
+      // }
+      if (firstCardSelected?.name === character.name) {
+        cloneCards[firstCardSelected.indexID] = {
+          ...firstCardSelected,
+          isMatched: true,
+          isFlipped: true,
+        }
+        cloneCards[position] = { ...character, isMatched: true, isFlipped: true }
+        setTurns((turn) => turn + 1)
         setHits((hit) => hit + 1)
+        setCharacters(cloneCards)
+        setFlippedCards(0)
       } else {
-        flippedCardCounter = 0
+        const revertCards = cloneCards.map((cloneChar) => {
+          if (cloneChar.isMatched) return cloneChar
+          return { ...cloneChar, isFlipped: false }
+        })
+        setTurns((turn) => turn + 1)
         setTimeout(() => {
-          flippingCard()
+          setCharacters(revertCards)
+          setFlippedCards(0)
         }, 2000)
       }
     }
-    console.log({ clone, flippedCardCounter })
-    // clone[position] = selectedCard()
-    setFlippedCards(flippedCardCounter)
-    // setCharacters(clone)
   }
-
-  console.log(characters)
 
   const handlePlay = () => {
     const flippedCards = characters.map((character) => ({ ...character, isFlipped: false }))
@@ -121,7 +143,11 @@ export const Home = (): React.ReactElement => {
                   title={character.name}
                   subtitle={`${character.status} - ${character.species}`}
                   isFlipped={character.isFlipped}
-                  onClick={isGameActive ? () => handleFlippedCard(character, position) : null}
+                  onClick={
+                    isCardUnblock && !character.isMatched
+                      ? () => handleFlippedCard(character, position)
+                      : null
+                  }
                 />
               ))
             )}
