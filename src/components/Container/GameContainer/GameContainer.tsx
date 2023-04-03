@@ -6,6 +6,6 @@ type GameContainerProps = {
   children: React.ReactNode
 }
 
-export const GameContainer: React.FC<GameContainerProps> = ({ children }) => {
+export const GameContainer = ({ children }: GameContainerProps) => {
   return <div className="game-container">{children}</div>
 }

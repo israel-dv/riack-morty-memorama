@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { CARD_LOGO } from 'src/utils/constants/sourceFiles'
 
 import { Typography } from '../Typography'

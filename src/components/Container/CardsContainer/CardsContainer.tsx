@@ -6,6 +6,6 @@ type CardsContainerProps = {
   children?: React.ReactNode
 }
 
-export const CardsContainer: React.FC<CardsContainerProps> = ({ children = null }) => {
+export const CardsContainer = ({ children = null }: CardsContainerProps) => {
   return <div className="cards-container">{children}</div>
 }

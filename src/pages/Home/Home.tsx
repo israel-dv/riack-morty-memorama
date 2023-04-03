@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { GET_CHARACTERS } from 'src/api/queries/getCharacters.query'
 import { Button } from 'src/components/Button'
@@ -19,12 +19,12 @@ import {
 } from 'src/utils/constants/homeValues'
 import { CHARACTERS, HITS, TURNS } from 'src/utils/constants/titles'
 import { randomNumbers } from 'src/utils/functions/randomNumber'
-import { suffle } from 'src/utils/functions/suffleCards'
+import { suffle } from 'src/utils/functions/suffle'
 import { CharactersProps } from 'src/utils/types/characters.types'
 
 import './Home.styles.scss'
 
-export const Home = (): React.ReactElement => {
+export const Home = (): JSX.Element => {
   const [randomIDS, setRandomIDS] = useState<string[]>(randomNumbers(6).map(String))
   const [isGameActive, setIsGameActive] = useState<boolean>(false)
   const [hits, setHits] = useState<number>(INITAL_HITS)

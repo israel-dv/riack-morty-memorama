@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Typography } from '../Typography'
 import './Button.styles.scss'
 
@@ -14,7 +12,7 @@ const BUTTON_TITLE = {
   start: 'Iniciar',
 }
 
-export const Button: React.FC<ButtonProps> = ({ type = 'play', onClick }) => {
+export const Button = ({ type = 'play', onClick }: ButtonProps): JSX.Element => {
   return (
     <button className={`btn-game ${type}`} onClick={onClick}>
       <Typography.Heading2 text={BUTTON_TITLE[type]} />
