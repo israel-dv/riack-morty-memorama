@@ -5,7 +5,7 @@
   "semi": false,
   "printWidth": 100,
   "bracketSpacing": true,
-  "importOrder": ["^api/(.*)$", "^components/(.*)$", "^utils/(.*)$", "^[./]"],
+  "importOrder": ["^api/(.*)$", "^components/(.*)$", "^pages/(.*)$", "^utils/(.*)$", "^[./]"],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true
 }
