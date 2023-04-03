@@ -1,4 +1,4 @@
-import { HeadingProps } from 'src/utils/types/heading.types'
+import { HeadingProps } from 'utils/types/heading.types'
 
 import './Text1.styles.scss'
 

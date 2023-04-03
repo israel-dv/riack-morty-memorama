@@ -1,5 +1,3 @@
-import React from 'react'
-
 import './CardsContainer.styles.scss'
 
 type CardsContainerProps = {

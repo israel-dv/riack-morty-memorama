@@ -1,4 +1,5 @@
-import { Typography } from '../Typography'
+import { Typography } from 'components/Typography'
+
 import './Button.styles.scss'
 
 type ButtonProps = {

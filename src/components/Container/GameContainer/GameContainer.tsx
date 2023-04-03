@@ -1,5 +1,3 @@
-import React from 'react'
-
 import './GameContainer.styles.scss'
 
 type GameContainerProps = {

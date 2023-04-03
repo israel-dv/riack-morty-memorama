@@ -1,6 +1,7 @@
-import { CARD_LOGO } from 'src/utils/constants/sourceFiles'
+import { Typography } from 'components/Typography'
 
-import { Typography } from '../Typography'
+import { CARD_LOGO } from 'utils/constants/sourceFiles'
+
 import './Card.styles.scss'
 
 type CardProps = {
