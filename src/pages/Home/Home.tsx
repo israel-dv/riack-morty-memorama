@@ -1,13 +1,15 @@
 import { useQuery } from '@apollo/client'
 import { useEffect, useState } from 'react'
 
-import { GET_CHARACTERS } from 'src/api/queries/getCharacters.query'
-import { Button } from 'src/components/Button'
-import { Card } from 'src/components/Card'
-import { CardsContainer } from 'src/components/Container/CardsContainer'
-import { GameContainer } from 'src/components/Container/GameContainer'
-import { Header } from 'src/components/Header'
-import { Typography } from 'src/components/Typography'
+import { GET_CHARACTERS } from 'api/queries/getCharacters.query'
+
+import { Button } from 'components/Button'
+import { Card } from 'components/Card'
+import { CardsContainer } from 'components/Container/CardsContainer'
+import { GameContainer } from 'components/Container/GameContainer'
+import { Header } from 'components/Header'
+import { Typography } from 'components/Typography'
+
 import {
   CHAR_INITIAL,
   HITS_TO_WIN,
@@ -16,11 +18,11 @@ import {
   INITIAL_TURNS,
   MAX_SELECTED_CARDS,
   MIN_SELECTED_CARDS,
-} from 'src/utils/constants/homeValues'
-import { CHARACTERS, HITS, TURNS } from 'src/utils/constants/titles'
-import { randomNumbers } from 'src/utils/functions/randomNumber'
-import { suffle } from 'src/utils/functions/suffle'
-import { CharactersProps } from 'src/utils/types/characters.types'
+} from 'utils/constants/homeValues'
+import { CHARACTERS, HITS, TURNS } from 'utils/constants/titles'
+import { randomNumbers } from 'utils/functions/randomNumber'
+import { suffle } from 'utils/functions/suffle'
+import { CharactersProps } from 'utils/types/characters.types'
 
 import './Home.styles.scss'
 

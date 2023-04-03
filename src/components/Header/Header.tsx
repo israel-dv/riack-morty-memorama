@@ -1,6 +1,6 @@
 import { APP_LOGO } from 'src/utils/constants/sourceFiles'
 
-import './HeaderStyles.scss'
+import './Header.styles.scss'
 
 const TITLE = 'Juego de memoria'
 

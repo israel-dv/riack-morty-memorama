@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './GameContainerStyles.scss'
+import './GameContainer.styles.scss'
 
 type GameContainerProps = {
   children: React.ReactNode
