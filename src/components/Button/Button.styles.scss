@@ -7,14 +7,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border: solid;
+  border-width: 0 0 4px 4px;
+  box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.2);
+  color: $text-primary;
 }
 
 .play {
   @extend %size-button;
   background-color: $blue-aqua;
-  color: $text-primary;
-  box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.2);
-  border: solid;
-  border-width: 0 0 4px 4px;
+  border-color: $green-lemon;
+}
+.start {
+  background-color: $green-lemon;
+  @extend %size-button;
+  border-color: $blue-aqua;
+}
+
+.repeat {
+  @extend %size-button;
+  background-color: $blue-aqua;
   border-color: $green-lemon;
 }
