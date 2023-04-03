@@ -11,8 +11,9 @@
 
 .game-container {
   @extend %game-container-props;
-  padding: 0 72px;
   margin-top: 32px;
+  padding: 0 5%;
+  width: 100%;
 }
 
 .titles {

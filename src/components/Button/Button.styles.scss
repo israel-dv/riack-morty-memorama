@@ -1,4 +1,5 @@
 @import '/src/styles/paletteColors';
+@import '/src/styles/breakpoints';
 
 %size-button {
   width: 240px;
@@ -28,4 +29,16 @@
   @extend %size-button;
   background-color: $blue-aqua;
   border-color: $green-lemon;
+}
+
+@media (max-width: $breakpoint-small) {
+  %size-button {
+    width: 140px;
+  }
+}
+
+@media (max-width: $breakpoint-medium) {
+  %size-button {
+    width: 190px;
+  }
 }

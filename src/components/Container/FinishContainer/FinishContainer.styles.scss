@@ -1,5 +1,14 @@
+@import '/src/styles/breakpoints';
+
 .end-game-container {
   flex: 1;
   width: 100%;
   padding: 0 15%;
+  box-sizing: border-box;
+}
+
+@media (max-width: $breakpoint-small) {
+  .end-game-container {
+    padding: 0 5%;
+  }
 }

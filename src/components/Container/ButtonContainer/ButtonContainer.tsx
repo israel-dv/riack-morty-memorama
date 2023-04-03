@@ -1,5 +1,7 @@
 import { Button } from 'components/Button'
 
+import './ButtonContainer.styles.scss'
+
 type ButtonContainerProps = {
   isGameFinished: boolean
   isGameActive: boolean
