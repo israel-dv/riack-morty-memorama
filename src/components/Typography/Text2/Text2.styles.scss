@@ -2,7 +2,8 @@
 
 .text2 {
   @extend %typography;
-  font-size: 10px;
+  font-size: 0.63em;
   line-height: 12px;
   font-weight: 400;
+  text-overflow: ellipsis;
 }

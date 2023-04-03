@@ -1,7 +1,15 @@
 @import '/src/styles/typography';
+@import '/src/styles/breakpoints';
 
 .heading2 {
   @extend %typography;
-  font-size: 24px;
+  font-size: 1.5rem;
   line-height: 29px;
+}
+
+@media (max-width: $breakpoint-medium) {
+  .heading2 {
+    font-size: 1.2rem;
+    line-height: 16px;
+  }
 }

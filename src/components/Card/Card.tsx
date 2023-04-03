@@ -16,7 +16,7 @@ export const Card = ({ imgUrl, title, subtitle, isFlipped = false, onClick }: Ca
   return (
     <div className={`card ${!isFlipped ? 'card-flipped' : 'card-normal'}`} onClick={onClick}>
       {!isFlipped ? (
-        <img src={CARD_LOGO} />
+        <img src={CARD_LOGO} className="img-character" />
       ) : (
         <>
           <img src={imgUrl} className="img-character" />

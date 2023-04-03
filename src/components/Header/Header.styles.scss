@@ -24,7 +24,7 @@
 
 .title-game {
   @extend %title-game;
-  font-size: 14px;
+  font-size: 0.875rem;
   height: 25px;
 }
 
@@ -35,7 +35,7 @@
   }
   .title-game {
     @extend %title-game;
-    font-size: 20px;
+    font-size: 1.25rem;
     height: 30px;
   }
 }

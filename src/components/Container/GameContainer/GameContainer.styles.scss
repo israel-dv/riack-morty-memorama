@@ -1,7 +1,8 @@
 @import '/src/styles/paletteColors';
+@import '/src/styles/breakpoints';
 
 %game-container-props {
-  width: 100%;
+  max-width: 1180px;
   height: 100%;
   background-color: $secondary-background;
   border-radius: 16px 16px 0 0;
@@ -19,7 +20,7 @@
   justify-content: space-between;
 }
 
-@media (max-width: 768px) {
+@media (max-width: $breakpoint-medium) {
   .game-container {
     @extend %game-container-props;
     padding: 0 5%;

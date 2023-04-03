@@ -1,4 +1,5 @@
 @import '/src/styles/paletteColors';
+@import '/src/styles/breakpoints';
 
 .cards-container {
   display: grid;
@@ -6,4 +7,16 @@
   column-gap: 16px;
   row-gap: 16px;
   margin-top: 24px;
+}
+
+@media (max-width: $breakpoint-small) {
+  .cards-container {
+    grid-template-columns: auto auto auto;
+  }
+}
+
+@media (max-width: $breakpoint-large) {
+  .cards-container {
+    grid-template-columns: auto auto auto;
+  }
 }

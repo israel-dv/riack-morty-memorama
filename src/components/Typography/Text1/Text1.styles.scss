@@ -1,7 +1,21 @@
 @import '/src/styles/_typography.scss';
+@import '/src/styles/breakpoints';
 
 .text1 {
   @extend %typography;
-  font-size: 16px;
   line-height: 22px;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: $breakpoint-small) {
+  .text1 {
+    font-size: 0.8em;
+    line-height: 12px;
+  }
+}
+@media (max-width: $breakpoint-medium) {
+  .text1 {
+    font-size: 0.8em;
+    line-height: 16px;
+  }
 }
