@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react'
 
 import { GET_CHARACTERS } from 'api/queries/getCharacters.query'
 
-import { Button } from 'components/Button'
 import { Card } from 'components/Card'
+import { ButtonContainer } from 'components/Container/ButtonContainer'
 import { CardsContainer } from 'components/Container/CardsContainer'
+import { FinishContainer } from 'components/Container/FinishContainer'
 import { GameContainer } from 'components/Container/GameContainer'
-import { Header } from 'components/Header'
-import { Typography } from 'components/Typography'
+import { Layout } from 'components/Layouts/Layout'
 
 import {
   CHAR_INITIAL,
@@ -19,7 +19,6 @@ import {
   MAX_SELECTED_CARDS,
   MIN_SELECTED_CARDS,
 } from 'utils/constants/homeValues'
-import { CHARACTERS, HITS, TURNS } from 'utils/constants/titles'
 import { randomNumbers } from 'utils/functions/randomNumber'
 import { suffle } from 'utils/functions/suffle'
 import { CharactersProps } from 'utils/types/characters.types'
@@ -48,8 +47,8 @@ export const Home = (): JSX.Element => {
     if (data) {
       const { charactersByIds } = data
       if (charactersByIds) {
-        const combineCharacters = [...charactersByIds, ...charactersByIds]
-        const setCharactersProps = combineCharacters.map((character, indexID) => ({
+        const duplicateCharacters = [...charactersByIds, ...charactersByIds]
+        const setCharactersProps = duplicateCharacters.map((character, indexID) => ({
           ...character,
           isFlipped: true,
           isMatched: false,
@@ -64,17 +63,24 @@ export const Home = (): JSX.Element => {
     if (hits === HITS_TO_WIN) setIsGameActive(false)
   }, [hits])
 
+  const resetGame = () => {
+    setHits(0)
+    setTurns(0)
+  }
+
   const handlePlay = () => {
+    setIsGameActive((isActive) => !isActive)
+
     const sufflingCards = suffle(characters)
-    setCharacters([...sufflingCards])
     setTimeout(() => {
       const flippedCards = sufflingCards.map((character, indexID) => ({
         ...character,
         isFlipped: false,
         indexID,
       }))
+
+      setCharacters([...sufflingCards])
       setCharacters([...flippedCards])
-      setIsGameActive((isActive) => !isActive)
     }, 3000)
   }
 
@@ -85,16 +91,14 @@ export const Home = (): JSX.Element => {
       isMatched: false,
     }))
 
-    setHits(0)
-    setTurns(0)
+    resetGame()
     setIsGameActive(true)
     setCharacters(revertCards)
   }
 
   const handleStart = () => {
+    resetGame()
     setRandomIDS(randomNumbers(6).map(String))
-    setHits(0)
-    setTurns(0)
     setIsGameActive(false)
   }
 
@@ -104,15 +108,17 @@ export const Home = (): JSX.Element => {
 
     if (countFlippedCard === MIN_SELECTED_CARDS) {
       cloneCards[position] = { ...character, isFlipped: true }
+
       setFirstCardSelected(cloneCards[position])
       setCharacters(cloneCards)
-      setFlippedCards((flippedCard) => flippedCard + 1)
+      setFlippedCards(countFlippedCard)
     }
     if (countFlippedCard === MAX_SELECTED_CARDS) {
       if (character.indexID === firstCardSelected.indexID) return
+
       cloneCards[position] = { ...character, isFlipped: true }
       setCharacters(cloneCards)
-      setFlippedCards((flippedCard) => flippedCard + 1)
+      setFlippedCards(countFlippedCard)
 
       if (firstCardSelected?.name === character.name) {
         cloneCards[firstCardSelected.indexID] = {
@@ -121,6 +127,7 @@ export const Home = (): JSX.Element => {
           isFlipped: true,
         }
         cloneCards[position] = { ...character, isMatched: true, isFlipped: true }
+
         setTurns((turn) => turn + 1)
         setHits((hit) => hit + 1)
         setCharacters(cloneCards)
@@ -130,67 +137,55 @@ export const Home = (): JSX.Element => {
           if (cloneChar.isMatched) return cloneChar
           return { ...cloneChar, isFlipped: false }
         })
-        setTurns((turn) => turn + 1)
+
         setTimeout(() => {
           setCharacters(revertCards)
           setFlippedCards(0)
         }, 1000)
+        setTurns((turn) => turn + 1)
       }
     }
   }
 
+  if (loading) {
+    return (
+      <Layout>
+        <div>Loading</div>
+      </Layout>
+    )
+  }
+
   return (
-    <>
-      <Header />
-      <main className="main-content">
-        <GameContainer>
-          {loading ? (
-            <div>Loading</div>
-          ) : isGameFinished ? (
-            <div className="end-game-container">
-              <Typography.Heading1 text="¡Felicitaciones!" />
-              <Typography.Heading2 text={`Terminaste el juego con ${turns} turnos`} />
-            </div>
-          ) : (
-            <>
-              {isGameActive ? (
-                <>
-                  <Typography.Heading2 text={`${HITS}: ${hits}`} />
-                  <Typography.Heading2 text={`${TURNS}: ${turns}`} />
-                </>
-              ) : (
-                <Typography.Heading2 text={CHARACTERS} />
-              )}
-              <CardsContainer>
-                {characters.map((character, position) => (
-                  <Card
-                    key={`${character.name}-${position}`}
-                    imgUrl={character.image}
-                    title={character.name}
-                    subtitle={`${character.status} - ${character.species}`}
-                    isFlipped={character.isFlipped}
-                    onClick={
-                      isCardUnblock && !character.isMatched
-                        ? () => handleFlippedCard(character, position)
-                        : null
-                    }
-                  />
-                ))}
-              </CardsContainer>
-            </>
-          )}
-          <div className="btn-container">
-            {isGameFinished ? (
-              <>
-                <Button type="repeat" onClick={handleRepeat} />
-                <Button type="start" onClick={handleStart} />
-              </>
-            ) : (
-              <Button type="play" onClick={handlePlay} />
-            )}
-          </div>
-        </GameContainer>
-      </main>
-    </>
+    <Layout>
+      <GameContainer hits={hits} turns={turns} isGameActive={isGameActive}>
+        {isGameFinished ? (
+          <FinishContainer turns={turns} />
+        ) : (
+          <CardsContainer>
+            {characters.map((character, position) => (
+              <Card
+                key={`${character.name}-${position}`}
+                imgUrl={`${character.image}`}
+                title={`${character.name}`}
+                subtitle={`${character.status} - ${character.species}`}
+                isFlipped={character.isFlipped}
+                onClick={
+                  isCardUnblock && !character.isMatched
+                    ? () => handleFlippedCard(character, position)
+                    : undefined
+                }
+              />
+            ))}
+          </CardsContainer>
+        )}
+        <ButtonContainer
+          isGameActive={isGameActive}
+          isGameFinished={isGameFinished}
+          onPlay={handlePlay}
+          onRepeat={handleRepeat}
+          onStart={handleStart}
+        />
+      </GameContainer>
+    </Layout>
   )
 }

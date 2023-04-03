@@ -4,10 +4,12 @@ import { apiClient } from 'api/client'
 
 import { Home } from 'pages/Home'
 
-export const App = () => {
+export function App() {
   return (
     <ApolloProvider client={apiClient}>
       <Home />
     </ApolloProvider>
   )
 }
+
+export default App

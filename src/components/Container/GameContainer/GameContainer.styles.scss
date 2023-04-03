@@ -14,6 +14,11 @@
   margin-top: 32px;
 }
 
+.titles {
+  display: flex;
+  justify-content: space-between;
+}
+
 @media (max-width: 768px) {
   .game-container {
     @extend %game-container-props;

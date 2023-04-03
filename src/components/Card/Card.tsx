@@ -9,7 +9,7 @@ type CardProps = {
   imgUrl?: string
   title?: string
   subtitle?: string
-  onClick?: () => void | null
+  onClick?: () => void
 }
 
 export const Card = ({ imgUrl, title, subtitle, isFlipped = false, onClick }: CardProps) => {
