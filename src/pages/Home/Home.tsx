@@ -9,6 +9,7 @@ import { CardsContainer } from 'components/Container/CardsContainer'
 import { FinishContainer } from 'components/Container/FinishContainer'
 import { GameContainer } from 'components/Container/GameContainer'
 import { Layout } from 'components/Layouts/Layout'
+import { Loader } from 'components/Loader/Loader'
 
 import {
   CHAR_INITIAL,
@@ -150,7 +151,7 @@ export const Home = (): JSX.Element => {
   if (loading) {
     return (
       <Layout>
-        <div>Loading</div>
+        <Loader />
       </Layout>
     )
   }
