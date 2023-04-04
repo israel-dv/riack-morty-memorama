@@ -1,7 +1,5 @@
-import { useQuery } from '@apollo/client'
 import { useEffect, useState } from 'react'
-
-import { GET_CHARACTERS } from 'api/queries/getCharacters.query'
+import { useGetCharacters } from 'src/hooks/useGetCharacters'
 
 import { Card } from 'components/Card'
 import { ButtonContainer } from 'components/Container/ButtonContainer'
@@ -32,14 +30,10 @@ export const Home = (): JSX.Element => {
   const [hits, setHits] = useState<number>(INITAL_HITS)
   const [turns, setTurns] = useState<number>(INITIAL_TURNS)
   const [flippedCards, setFlippedCards] = useState<number>(INITIAL_FLIPPED_CARDS)
-  const [characters, setCharacters] = useState<CharactersProps[]>([])
+  const [cardCharacters, setCardCharacters] = useState<CharactersProps[]>([])
   const [firstCardSelected, setFirstCardSelected] = useState<CharactersProps>(CHAR_INITIAL)
 
-  const { data, loading } = useQuery(GET_CHARACTERS, {
-    variables: {
-      ids: randomIDS,
-    },
-  })
+  const { data, loading } = useGetCharacters(randomIDS)
 
   const isCardUnblock = isGameActive && flippedCards !== MAX_SELECTED_CARDS
   const isGameFinished = hits === HITS_TO_WIN
@@ -55,7 +49,7 @@ export const Home = (): JSX.Element => {
           isMatched: false,
           indexID,
         }))
-        setCharacters([...setCharactersProps])
+        setCardCharacters([...setCharactersProps])
       }
     }
   }, [data])
@@ -72,8 +66,8 @@ export const Home = (): JSX.Element => {
   const handlePlay = () => {
     setIsGameActive((isActive) => !isActive)
 
-    const sufflingCards = suffle(characters)
-    setCharacters([...sufflingCards])
+    const sufflingCards = suffle(cardCharacters)
+    setCardCharacters([...sufflingCards])
     setTimeout(() => {
       const flippedCards = sufflingCards.map((character, indexID) => ({
         ...character,
@@ -81,13 +75,12 @@ export const Home = (): JSX.Element => {
         indexID,
       }))
 
-      // setCharacters([...sufflingCards])
-      setCharacters([...flippedCards])
+      setCardCharacters([...flippedCards])
     }, 3000)
   }
 
   const handleRepeat = () => {
-    const revertCards = characters.map((character) => ({
+    const revertCards = cardCharacters.map((character) => ({
       ...character,
       isFlipped: false,
       isMatched: false,
@@ -95,7 +88,7 @@ export const Home = (): JSX.Element => {
 
     resetGame()
     setIsGameActive(true)
-    setCharacters(revertCards)
+    setCardCharacters(revertCards)
   }
 
   const handleStart = () => {
@@ -106,20 +99,20 @@ export const Home = (): JSX.Element => {
 
   const handleFlippedCard = (character: CharactersProps, position: number) => {
     const countFlippedCard = flippedCards + 1
-    const cloneCards = [...characters]
+    const cloneCards = [...cardCharacters]
 
     if (countFlippedCard === MIN_SELECTED_CARDS) {
       cloneCards[position] = { ...character, isFlipped: true }
 
       setFirstCardSelected(cloneCards[position])
-      setCharacters(cloneCards)
+      setCardCharacters(cloneCards)
       setFlippedCards(countFlippedCard)
     }
     if (countFlippedCard === MAX_SELECTED_CARDS) {
       if (character.indexID === firstCardSelected.indexID) return
 
       cloneCards[position] = { ...character, isFlipped: true }
-      setCharacters(cloneCards)
+      setCardCharacters(cloneCards)
       setFlippedCards(countFlippedCard)
 
       if (firstCardSelected?.name === character.name) {
@@ -132,7 +125,7 @@ export const Home = (): JSX.Element => {
 
         setTurns((turn) => turn + 1)
         setHits((hit) => hit + 1)
-        setCharacters(cloneCards)
+        setCardCharacters(cloneCards)
         setFlippedCards(0)
       } else {
         const revertCards = cloneCards.map((cloneChar) => {
@@ -141,7 +134,7 @@ export const Home = (): JSX.Element => {
         })
 
         setTimeout(() => {
-          setCharacters(revertCards)
+          setCardCharacters(revertCards)
           setFlippedCards(0)
         }, 1000)
         setTurns((turn) => turn + 1)
@@ -164,16 +157,16 @@ export const Home = (): JSX.Element => {
           <FinishContainer turns={turns} />
         ) : (
           <CardsContainer>
-            {characters.map((character, position) => (
+            {cardCharacters.map((cardChar, position) => (
               <Card
-                key={`${character.name}-${position}`}
-                imgUrl={`${character.image}`}
-                title={`${character.name}`}
-                subtitle={`${character.status} - ${character.species}`}
-                isFlipped={character.isFlipped}
+                key={`${cardChar.name}-${position}`}
+                imgUrl={`${cardChar.image}`}
+                title={`${cardChar.name}`}
+                subtitle={`${cardChar.status} - ${cardChar.species}`}
+                isFlipped={cardChar.isFlipped}
                 onClick={
-                  isCardUnblock && !character.isMatched
-                    ? () => handleFlippedCard(character, position)
+                  isCardUnblock && !cardChar.isMatched
+                    ? () => handleFlippedCard(cardChar, position)
                     : undefined
                 }
               />
