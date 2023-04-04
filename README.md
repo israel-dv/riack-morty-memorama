@@ -135,3 +135,4 @@ yarn gql-compile
   - Implementacion de custom hook
   - Test
 - Mejorar arquitectura con Sass
+- Agregar animacion cuanndo el usuario gane la partida
