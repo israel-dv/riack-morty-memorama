@@ -2,7 +2,7 @@
  * For a detailed explanation regarding each configuration property and type check, visit:
  * https://jestjs.io/docs/configuration
  */
-
+/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 export default {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
@@ -71,12 +71,10 @@ export default {
   // maxWorkers: "50%",
 
   // An array of directory names to be searched recursively up from the requiring module's location
-  // moduleDirectories: [
-  //   "node_modules"
-  // ],
+  moduleDirectories: ['node_modules', 'src', 'components'],
 
   // An array of file extensions your modules use
-  // moduleFileExtensions: [
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   //   "js",
   //   "mjs",
   //   "cjs",
@@ -88,7 +86,14 @@ export default {
   // ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+  moduleNameMapper: {
+    '^@/components/(.*)$': '/src/components/$1',
+    '\\.css$': '<rootDir>/emptyModule.js',
+    '^@/pages/(.*)$': '<rootDir>/pages/$1',
+    '^.+\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+    // 'components/*': './src/components/*',
+    // './*': '<rootDir>/src/$1',
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
@@ -100,7 +105,7 @@ export default {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  // preset: undefined,
+  preset: 'ts-jest',
 
   // Run tests from one or more projects
   // projects: undefined,
@@ -121,7 +126,7 @@ export default {
   // restoreMocks: false,
 
   // The root directory that Jest should scan for tests and modules within
-  // rootDir: undefined,
+  // rootDir: ['<rootDir>'],
 
   // A list of paths to directories that Jest should use to search for files in
   // roots: [
@@ -144,7 +149,7 @@ export default {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  // testEnvironment: "jest-environment-node",
+  testEnvironment: 'jest-environment-jsdom', //"jest-environment-node",
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -164,7 +169,7 @@ export default {
   // ],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
-  // testRegex: [],
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(ts|tsx)$',
 
   // This option allows the use of a custom results processor
   // testResultsProcessor: undefined,
@@ -174,7 +179,7 @@ export default {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.ts?$': 'ts-jest',
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation

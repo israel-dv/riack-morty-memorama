@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Button to show just 3 options Play Button 1`] = `
+<div>
+  <button
+    class="btn-game play"
+  >
+    <h2
+      class="heading2"
+    >
+      Jugar
+    </h2>
+  </button>
+</div>
+`;
+
+exports[`Test Button to show just 3 options Repeat Button 1`] = `
+<div>
+  <button
+    class="btn-game repeat"
+  >
+    <h2
+      class="heading2"
+    >
+      Repetir
+    </h2>
+  </button>
+</div>
+`;
+
+exports[`Test Button to show just 3 options Start Button 1`] = `
+<div>
+  <button
+    class="btn-game start"
+  >
+    <h2
+      class="heading2"
+    >
+      Iniciar
+    </h2>
+  </button>
+</div>
+`;
