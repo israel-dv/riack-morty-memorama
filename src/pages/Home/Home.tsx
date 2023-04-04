@@ -73,6 +73,7 @@ export const Home = (): JSX.Element => {
     setIsGameActive((isActive) => !isActive)
 
     const sufflingCards = suffle(characters)
+    setCharacters([...sufflingCards])
     setTimeout(() => {
       const flippedCards = sufflingCards.map((character, indexID) => ({
         ...character,
@@ -80,7 +81,7 @@ export const Home = (): JSX.Element => {
         indexID,
       }))
 
-      setCharacters([...sufflingCards])
+      // setCharacters([...sufflingCards])
       setCharacters([...flippedCards])
     }, 3000)
   }
