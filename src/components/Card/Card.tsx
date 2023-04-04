@@ -19,9 +19,9 @@ export const Card = ({ imgUrl, title, subtitle, isFlipped = false, onClick }: Ca
         <img src={CARD_LOGO} className="img-character" />
       ) : (
         <>
-          <img src={imgUrl} className="img-character" />
-          <Typography.Text1 text={title} />
-          <Typography.Text2 text={subtitle} />
+          <img src={imgUrl} className="img-character" data-testid="image-card" />
+          <Typography.Text1 text={title} textID="title-card" />
+          <Typography.Text2 text={subtitle} textID="subtitle-card" />
         </>
       )}
     </div>

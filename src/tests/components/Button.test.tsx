@@ -13,6 +13,7 @@ describe('Test Button to show just 3 options', () => {
   })
   test('Play Button', async () => {
     const { container } = render(<Button type="play" />)
+
     expect(container).toMatchSnapshot()
   })
 })
